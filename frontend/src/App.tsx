@@ -1,0 +1,17 @@
+import { Route, Routes } from 'react-router-dom'
+import { Layout } from './components/Layout'
+import { AsistenciaPage } from './pages/AsistenciaPage'
+import { HomePage } from './pages/HomePage'
+import { NotFoundPage } from './pages/NotFoundPage'
+
+export function App() {
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="asistencia" element={<AsistenciaPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
+  )
+}
