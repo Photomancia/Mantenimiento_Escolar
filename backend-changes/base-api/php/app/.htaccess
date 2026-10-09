@@ -1,0 +1,3 @@
+# Protección adicional por si app/ quedara dentro de public_html.
+# Lo recomendado es ubicar esta carpeta FUERA de public_html.
+Require all denied

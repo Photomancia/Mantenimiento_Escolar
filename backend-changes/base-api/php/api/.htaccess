@@ -1,0 +1,11 @@
+# Destino previsto: public_html/api/.htaccess
+# Requiere Apache con mod_rewrite (pendiente de confirmar en Hostinger).
+
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Archivos reales (si los hubiera) se sirven tal cual; el resto va a index.php.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
