@@ -28,7 +28,7 @@ export default function App() {
     const padreId = nuevoId('p')
     const ninoId = nuevoId('n')
     setPadres((ps) => [...ps, { id: padreId, nombre: form.padre, documento: form.documento, telefono: form.telefono, email: form.email }])
-    setNinos((ns) => [...ns, { id: ninoId, nombre: form.nino, grado: form.grado, padreId, estado: 'ausente', entrada: null, salida: null }])
+    setNinos((ns) => [...ns, { id: ninoId, nombre: form.nino, grado: form.grado, historialMedico: form.necesitaMedicacion ? form.historialMedico.trim() : '', padreId, estado: 'ausente', entrada: null, salida: null }])
     return { padreId, ninoId }
   }
 

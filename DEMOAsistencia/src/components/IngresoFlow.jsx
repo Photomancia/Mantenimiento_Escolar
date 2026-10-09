@@ -10,7 +10,7 @@ export default function IngresoFlow({ padres, ninos, onRegistrar, onIngreso }) {
   const [padreId, setPadreId] = useState('')
   const [ninoId, setNinoId] = useState('')
   const [registrado, setRegistrado] = useState(null)
-  const [form, setForm] = useState({ padre: '', documento: '', telefono: '', email: '', nino: '', grado: '' })
+  const [form, setForm] = useState({ padre: '', documento: '', telefono: '', email: '', nino: '', grado: '', necesitaMedicacion: null, historialMedico: '' })
   const [hora, setHora] = useState(null)
   const [firma, setFirma] = useState(null)
   const [error, setError] = useState('')
@@ -21,7 +21,7 @@ export default function IngresoFlow({ padres, ninos, onRegistrar, onIngreso }) {
 
   const reiniciar = () => {
     setPaso(0); setPadreId(''); setNinoId(''); setRegistrado(null)
-    setForm({ padre: '', documento: '', telefono: '', email: '', nino: '', grado: '' })
+    setForm({ padre: '', documento: '', telefono: '', email: '', nino: '', grado: '', necesitaMedicacion: null, historialMedico: '' })
     setHora(null); setFirma(null); setError('')
   }
 
@@ -34,8 +34,12 @@ export default function IngresoFlow({ padres, ninos, onRegistrar, onIngreso }) {
 
   const guardarRegistro = (e) => {
     e.preventDefault()
-    const faltan = Object.entries(form).filter(([k, v]) => k !== 'email' && !v.trim())
-    if (faltan.length) return setError('Complete todos los campos obligatorios (*).')
+    const obligatorios = ['padre', 'documento', 'telefono', 'nino', 'grado']
+    if (obligatorios.some((k) => !form[k].trim())) return setError('Complete todos los campos obligatorios (*).')
+    if (form.necesitaMedicacion === null) return setError('Indique si el niño necesita medicamentos.')
+    if (form.necesitaMedicacion && !form.historialMedico.trim()) {
+      return setError('Describa los medicamentos / historial médico del niño.')
+    }
     const { padreId: pId, ninoId: nId } = onRegistrar(form)
     setPadreId(pId); setNinoId(nId); setError('')
     setPaso(2)
@@ -110,6 +114,26 @@ export default function IngresoFlow({ padres, ninos, onRegistrar, onIngreso }) {
             <label>Nombre del niño *<input value={form.nino} onChange={(e) => setForm({ ...form, nino: e.target.value })} /></label>
             <label>Grado / sala *<input value={form.grado} onChange={(e) => setForm({ ...form, grado: e.target.value })} /></label>
           </div>
+          <p className="decision">¿El niño o niña necesita medicamentos? *</p>
+          <div className="opciones">
+            <label className={`opcion ${form.necesitaMedicacion === true ? 'sel' : ''}`}>
+              <input type="radio" checked={form.necesitaMedicacion === true} onChange={() => setForm({ ...form, necesitaMedicacion: true })} /> Sí
+            </label>
+            <label className={`opcion ${form.necesitaMedicacion === false ? 'sel' : ''}`}>
+              <input type="radio" checked={form.necesitaMedicacion === false} onChange={() => setForm({ ...form, necesitaMedicacion: false, historialMedico: '' })} /> No
+            </label>
+          </div>
+          {form.necesitaMedicacion && (
+            <label>
+              Historial médico / medicamentos *
+              <textarea
+                rows={3}
+                value={form.historialMedico}
+                onChange={(e) => setForm({ ...form, historialMedico: e.target.value })}
+                placeholder="Ej.: Asma — salbutamol inhalador, 2 disparos si presenta dificultad para respirar."
+              />
+            </label>
+          )}
           <div className="acciones">
             <button type="button" className="btn btn-sec" onClick={() => { setError(''); setPaso(0) }}>Volver</button>
             <button type="submit" className="btn">Guardar registro</button>
@@ -171,6 +195,7 @@ function Resumen({ padre, nino, hora }) {
     <dl className="resumen">
       <dt>Padre / tutor</dt><dd>{padre?.nombre}</dd>
       <dt>Niño</dt><dd>{nino?.nombre} ({nino?.grado})</dd>
+      <dt>Medicamentos</dt><dd>{nino?.historialMedico || 'No necesita'}</dd>
       {hora && (<><dt>Hora de entrada</dt><dd>{hora}</dd></>)}
     </dl>
   )

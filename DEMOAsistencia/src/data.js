@@ -9,11 +9,11 @@ export const PADRES_INICIALES = [
 
 // estado: 'ausente' | 'presente' | 'retirado'
 export const NINOS_INICIALES = [
-  { id: 'n1', nombre: 'Sofía González', grado: '1° A', padreId: 'p1', estado: 'ausente', entrada: null, salida: null },
-  { id: 'n2', nombre: 'Mateo González', grado: '3° B', padreId: 'p1', estado: 'ausente', entrada: null, salida: null },
-  { id: 'n3', nombre: 'Valentina Pérez', grado: '2° A', padreId: 'p2', estado: 'presente', entrada: '07:45', salida: null },
-  { id: 'n4', nombre: 'Tomás Fernández', grado: 'Sala de 5', padreId: 'p3', estado: 'presente', entrada: '07:52', salida: null },
-  { id: 'n5', nombre: 'Emma Ramírez', grado: '1° B', padreId: 'p4', estado: 'ausente', entrada: null, salida: null },
+  { id: 'n1', nombre: 'Sofía González', grado: '1° A', historialMedico: '', padreId: 'p1', estado: 'ausente', entrada: null, salida: null },
+  { id: 'n2', nombre: 'Mateo González', grado: '3° B', historialMedico: 'Asma leve — salbutamol inhalador (2 disparos) ante dificultad respiratoria.', padreId: 'p1', estado: 'ausente', entrada: null, salida: null },
+  { id: 'n3', nombre: 'Valentina Pérez', grado: '2° A', historialMedico: '', padreId: 'p2', estado: 'presente', entrada: '07:45', salida: null },
+  { id: 'n4', nombre: 'Tomás Fernández', grado: 'Sala de 5', historialMedico: 'Alergia a la penicilina. Antihistamínico (cetirizina) 5 ml a las 12:00.', padreId: 'p3', estado: 'presente', entrada: '07:52', salida: null },
+  { id: 'n5', nombre: 'Emma Ramírez', grado: '1° B', historialMedico: '', padreId: 'p4', estado: 'ausente', entrada: null, salida: null },
 ]
 
 export const BITACORA_INICIAL = [

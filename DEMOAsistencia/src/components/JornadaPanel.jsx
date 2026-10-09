@@ -33,6 +33,7 @@ export default function JornadaPanel({ ninos, padres, bitacora, onIncidente }) {
                 <div>
                   <strong>{n.nombre}</strong>
                   <span className="muted"> · {n.grado} · entrada {n.entrada}</span>
+                  {n.historialMedico && <div className="medico">💊 {n.historialMedico}</div>}
                 </div>
                 {incidentes > 0
                   ? <span className="badge warn">{incidentes} incidente(s)</span>

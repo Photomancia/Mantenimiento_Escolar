@@ -15,13 +15,14 @@ export default function Panel({ ninos, padres, bitacora }) {
       <section className="card">
         <h2>Estado de alumnos</h2>
         <table className="tabla">
-          <thead><tr><th>Alumno</th><th>Grado</th><th>Padre / tutor</th><th>Entrada</th><th>Salida</th><th>Estado</th></tr></thead>
+          <thead><tr><th>Alumno</th><th>Grado</th><th>Padre / tutor</th><th>Medicamentos</th><th>Entrada</th><th>Salida</th><th>Estado</th></tr></thead>
           <tbody>
             {ninos.map((n) => (
               <tr key={n.id}>
                 <td>{n.nombre}</td>
                 <td>{n.grado}</td>
                 <td>{padres.find((p) => p.id === n.padreId)?.nombre}</td>
+                <td>{n.historialMedico ? <span className="badge warn" title={n.historialMedico}>💊 Sí</span> : <span className="muted">No</span>}</td>
                 <td>{n.entrada ?? '—'}</td>
                 <td>{n.salida ?? '—'}</td>
                 <td><span className={`badge ${CLASES[n.estado]}`}>{ETIQUETAS[n.estado]}</span></td>

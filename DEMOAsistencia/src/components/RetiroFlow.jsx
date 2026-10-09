@@ -62,6 +62,7 @@ export default function RetiroFlow({ ninos, padres, bitacora, onRetiro }) {
             <dl className="resumen">
               <dt>Padre / tutor autorizado</dt><dd>{padre.nombre} — DNI {padre.documento}</dd>
               <dt>Hora de entrada</dt><dd>{nino.entrada}</dd>
+              <dt>Medicamentos</dt><dd>{nino.historialMedico || 'No necesita'}</dd>
             </dl>
           )}
           <div className="acciones">

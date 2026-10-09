@@ -103,3 +103,4 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--primary-sof
 .badge.neutral { background: var(--bg); color: var(--muted); }
 
 .pie { text-align: center; color: var(--muted); font-size: 0.8rem; padding: 16px 0; }
+.medico { margin-top: 4px; font-size: 0.82rem; color: #92400e; }
