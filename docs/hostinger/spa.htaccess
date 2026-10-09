@@ -1,0 +1,29 @@
+# Ejemplo de .htaccess para servir el frontend (React Router) en Hostinger.
+# Destino previsto: public_html/.htaccess (o la carpeta donde se publique el frontend).
+# ⚠️ Si ya existe un .htaccess en esa carpeta, FUSIONAR a mano: no sobrescribir.
+
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # La API tiene su propio .htaccess: no tocar /api/.
+    RewriteRule ^api/ - [L]
+
+    # Archivos y carpetas reales se sirven tal cual.
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # El resto de rutas (/asistencia, etc.) las resuelve React.
+    RewriteRule ^ index.html [L]
+</IfModule>
+
+# index.html sin caché (para que se vean las nuevas versiones);
+# los archivos de /assets llevan hash en el nombre y pueden cachearse.
+<IfModule mod_headers.c>
+    <FilesMatch "index\.html$">
+        Header set Cache-Control "no-cache"
+    </FilesMatch>
+</IfModule>
